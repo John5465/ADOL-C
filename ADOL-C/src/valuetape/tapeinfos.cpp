@@ -492,7 +492,8 @@ void TapeInfos::put_loc_block(const char *loc_fileName) {
   const size_t remain = number % chunkSize;
 
   if (loc_file == nullptr) {
-    if ((loc_file = fopen(loc_fileName, "rb"))) {
+    loc_file = fopen(loc_fileName, "rb");
+    if (loc_file) {
 #if defined(ADOLC_DEBUG)
       fprintf(DIAG_OUT, "ADOL-C debug: Old tapefile %s gets removed!\n",
               loc_fileName);

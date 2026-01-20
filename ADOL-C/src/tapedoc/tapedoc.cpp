@@ -53,7 +53,8 @@ static constexpr std::string_view extension{".tex"};
 void filewrite_start(int opcode) {
   const std::string fileName =
       std::string(baseName) + std::to_string(tag) + std::string(extension);
-  if (!(fp = fopen(fileName.c_str(), "w")))
+  fp = fopen(fileName.c_str(), "w");
+  if (!fp)
     ADOLCError::fail(ADOLCError::ErrorType::CANNOT_OPEN_FILE, CURRENT_LOCATION);
 
   fprintf(fp, "\\documentclass{article}\n");

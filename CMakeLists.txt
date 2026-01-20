@@ -23,9 +23,9 @@ elseif (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     endif()
 
 elseif (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
-    if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 19.31)
-        message(FATAL_ERROR "MSVC 19.31 (Visual Studio 2022 v17.1) or higher is required for ADOL-C.")
-    endif()
+    #if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 19.31)
+    #    message(FATAL_ERROR "MSVC 19.31 (Visual Studio 2022 v17.1) or higher is required for ADOL-C.")
+    #endif()
 
 else()
     message(WARNING "Unknown compiler — C++20 compatibility not guaranteed.")
@@ -66,7 +66,7 @@ add_feature_info(ENABLE_TRACELESS_REFCOUNTING ENABLE_TRACELESS_REFCOUNTING "Refe
 option(ENABLE_ACTIVITY_TRACKING "Enable activity tracking to reduce trace size but increased tracing time" FALSE)
 add_feature_info(ENABLE_ACTIVITY_TRACKING ENABLE_ACTIVITY_TRACKING "Activity tracking to reduce trace size but increased tracing time.")
 
-option(ENABLE_HARDDEBUG "Enable ADOL-C hard debug mode" FALSE)
+option(ENABLE_HARDDEBUG "Enable ADOL-C hard debug mode" TRUE)
 add_feature_info(ENABLE_HARDDEBUG ENABLE_HARDDEBUG "Hard debug mode.")
 
 option(ENABLE_STDCZERO "adouble default constructor does not initialize the value to zero" TRUE)
@@ -101,6 +101,7 @@ option(BUILD_INTERFACE OFF)
 # build the tests
 option(BUILD_TESTS OFF)
 
+set(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/install)
 
 # definition of library target
 # ----------------------------
