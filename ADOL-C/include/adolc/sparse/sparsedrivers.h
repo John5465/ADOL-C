@@ -12,8 +12,8 @@ package.
  recipient's acceptance of the terms of the accompanying license file.
 
 ----------------------------------------------------------------------------*/
-#if !defined(ADOLC_SPARSE_SPARSE_H)
-#define ADOLC_SPARSE_SPARSE_H 1
+#if !defined(ADOLC_SPARSE_SPARSE_DRIVERS_H)
+#define ADOLC_SPARSE_SPARSE_DRIVERS_H 1
 
 #include <adolc/internal/common.h>
 

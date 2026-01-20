@@ -56,3 +56,8 @@ target_sources(adolc PRIVATE
               )
 
 add_subdirectory(drivers)
+add_subdirectory(lie)
+if(ENABLE_SPARSE)
+  add_subdirectory(sparse)
+endif()
+#add_subdirectory(tapedoc)
