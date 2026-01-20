@@ -6,6 +6,12 @@ project(adol-c
   DESCRIPTION "A Package for Automatic Differentiation of Algorithms Written in C/C++"
   HOMEPAGE_URL "https://github.com/coin-or/ADOL-C")
 
+if (MSVC)
+  message(STATUS "---- compiling with MSVC")
+  set(CMAKE_CXX_STANDARD 17)
+  set(CMAKE_CXX_FLAGS "/EHsc /source-charset:utf-8 /std:c++17")
+endif()
+set(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/install)
 add_library(adolc SHARED)
 add_library(adolc::adolc ALIAS adolc)
 
@@ -51,7 +57,7 @@ set(REAL_TYPE double)
 
 set(ADVBRANCH "#undef ADOLC_ADVANCED_BRANCHING")
 set(ADTL_REFCNT "#undef USE_ADTL_REFCOUNTING")
-set(SPARSE_DRIVERS "#undef SPARSE_DRIVERS")
+set(SPARSE_DRIVERS "#define SPARSE_DRIVERS")
 
 option(ENABLE_BOOST_POOL "Flag to activate boost-pool support" OFF)
 if(ENABLE_BOOST_POOL)
