@@ -1411,11 +1411,15 @@ void printTapeStats(FILE *stream, short tag) {
 /****************************************************************************/
 /* Returns the number of parameters recorded on tape                        */
 /****************************************************************************/
-size_t get_num_param(short tag) {
+BEGIN_C_DECLS
+
+ADOLC_DLL_EXPORT size_t get_num_param(short tag) {
   TapeInfos *tapeInfos;
   tapeInfos = getTapeInfos(tag);
   return tapeInfos->stats[NUM_PARAM];
 }
+
+END_C_DECLS
 
 /****************************************************************************/
 /* Reads parameters from the end of value tape for disk based tapes         */
@@ -1485,7 +1489,9 @@ static void read_params(TapeInfos *tapeInfos) {
 /* the taylor stack, so next reverse call will fail, if not preceded by a   */
 /* forward call after setting the parameters.                               */
 /****************************************************************************/
-void set_param_vec(short tag, size_t numparam, revreal *paramvec) {
+BEGIN_C_DECLS
+
+ADOLC_DLL_EXPORT void set_param_vec(short tag, size_t numparam, revreal *paramvec) {
   size_t i;
   ADOLC_OPENMP_THREAD_NUMBER;
   ADOLC_OPENMP_GET_THREAD_NUMBER;
@@ -1512,6 +1518,8 @@ void set_param_vec(short tag, size_t numparam, revreal *paramvec) {
   taylor_close(false);
   releaseTape();
 }
+
+END_C_DECLS
 
 /****************************************************************************/
 /* Does the actual reading from the hard disk into the stats buffer         */

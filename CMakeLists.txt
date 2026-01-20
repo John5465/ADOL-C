@@ -8,6 +8,7 @@ project(adol-c
 
 if (MSVC)
   message(STATUS "---- compiling with MSVC")
+  set(CMAKE_BUILD_TYPE DEBUG)
   set(CMAKE_CXX_STANDARD 17)
   set(CMAKE_CXX_FLAGS "/EHsc /source-charset:utf-8 /std:c++17")
 endif()
