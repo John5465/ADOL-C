@@ -8,6 +8,8 @@ project(adol-c
 
 if (MSVC)
   message(STATUS "---- compiling with MSVC")
+  cmake_policy(SET CMP0091 NEW)
+  set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
   set(CMAKE_BUILD_TYPE DEBUG)
   set(CMAKE_CXX_STANDARD 17)
   set(CMAKE_CXX_FLAGS "/EHsc /source-charset:utf-8 /std:c++17")
@@ -43,6 +45,11 @@ target_include_directories(adolc
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/ADOL-C/include>
     $<INSTALL_INTERFACE:include>)
 
+target_include_directories(adolc
+  PRIVATE
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/extra/ColPack/include>
+)
+
 # Set an include directory for the internally used library headers.
 #
 # This includes the files uni5_for.cpp, fo_rev.cpp, and ho_rev.cpp. Even though
@@ -61,7 +68,7 @@ set(REAL_TYPE double)
 
 set(ADVBRANCH "#undef ADOLC_ADVANCED_BRANCHING")
 set(ADTL_REFCNT "#undef USE_ADTL_REFCOUNTING")
-set(SPARSE_DRIVERS "#undef SPARSE_DRIVERS")
+#set(SPARSE_DRIVERS "#undef SPARSE_DRIVERS")
 
 option(ENABLE_BOOST_POOL "Flag to activate boost-pool support" OFF)
 if(ENABLE_BOOST_POOL)
@@ -75,7 +82,16 @@ endif()
 
 target_compile_definitions(adolc PRIVATE
   $<$<BOOL:${ENABLE_SPARSE}>:SPARSE_DRIVERS=1>
-  $<$<BOOL:${ENABLE_SPARSE}>:SPARSE=1>)
+  $<$<BOOL:${ENABLE_SPARSE}>:SPARSE=1>
+  HAVE_LIBCOLPACK
+)
+
+find_library(COLPACK_LIB 
+    NAMES ColPack_static.lib
+    PATHS "${CMAKE_CURRENT_SOURCE_DIR}/extra/ColPack/lib"
+    NO_DEFAULT_PATH
+)
+target_link_libraries(adolc PRIVATE ${COLPACK_LIB})
 
 # include subdirectories for handling of includes and source files
 # ----------------------------------------------------------------
