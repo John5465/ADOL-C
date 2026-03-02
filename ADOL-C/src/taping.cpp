@@ -458,7 +458,7 @@ char *createFileName(short tapeID, int tapeType) {
 static char *duplicatestr(const char *instr) {
   size_t len = strlen(instr);
   char *outstr = new char[len + 1];
-  strncpy(outstr, instr, len);
+  strncpy(outstr, instr, len + 1);
   return outstr;
 }
 

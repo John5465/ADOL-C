@@ -35,6 +35,7 @@ if (WIN32)
   target_compile_definitions(adolc PRIVATE     
       # handles __declspec
       ADOLC_DLL
+      _WINDOWS
   )   
 endif(WIN32) 
 
